@@ -41,6 +41,7 @@ class Tenant {
                 this.clientID = process.env.CLIENT_ID,
                 this.clientSecret = process.env.CLIENT_SECRET,
                 this.callbackURL = process.env.REDIRECT_URI+'/authorization-code/'+sub
+                // branding based on ENV
             }
             catch(error) {
                 logger.error(error);

@@ -4,7 +4,7 @@ var passport = require('passport');
 var OidcStrategy = require('passport-openidconnect').Strategy;
 var logger = require('./logger')
 
-const defaultTenantSub = "default"
+const defaultTenantSub = "default";
 
 class TenantResolver {
     constructor() {

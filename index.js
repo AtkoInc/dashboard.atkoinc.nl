@@ -1,20 +1,22 @@
 require('dotenv').config()
+
 const express = require('express')
 const hbs  = require('express-handlebars')
 const session = require('express-session')
 const axios = require('axios')
 const bodyParser = require('body-parser')
-const urlencodedParser = bodyParser.urlencoded({ extended: true });
 
 var passport = require('passport');
 var logger = require('./logger')
 
 const tenantResolver = require('./tenantResolver')
 const userProfile = require('./models/userprofile')
+const appLink = require('./models/applink')
 
 const PORT = process.env.PORT || 3000;
 
 app = express();
+app.use(express.json());
 
 app.engine('hbs',  hbs( { 
     extname: 'hbs', 
@@ -40,7 +42,7 @@ app.engine('hbs',  hbs( {
 
 app.set('view engine', 'hbs');
 
-app.use('/static', express.static('static'));
+app.use('/assets', express.static('assets'));
 app.use('/scripts', express.static(__dirname + '/node_modules/clipboard/dist/'));
 
 app.use(session({
@@ -101,41 +103,40 @@ function parseError(error){
 
 const router = express.Router();
 
-router.get("/", async (req, res, next) => {
+router.get("/",tr.ensureAuthenticated(), async (req, res, next) => {
     logger.verbose("/ requested")
     const requestingTenant = tr.getRequestingTenant(req);
 
-    res.render("index",{
-        tenant: requestingTenant.tenant,
-    });
-
-});
-
-router.get("/me",tr.ensureAuthenticated(), async (req, res, next) => {
-    logger.verbose("/me requested")
     const tokenSet = req.userContext.tokens;
     axios.defaults.headers.common['Authorization'] = `Bearer `+tokenSet.access_token
     try {
-        const response = await axios.get(tr.getRequestingTenant(req).tenant+'/api/v1/users/'+req.userContext.userinfo.sub)
-        userProfile = new userProfile(response.data)
+        const response = await axios.get(tr.getRequestingTenant(req).tenant+'/api/v1/users/me/appLinks')
+        var apps = [];
 
-        res.render("me",{
+        for(var idx in response.data){
+            var app = new appLink(response.data[idx]);
+            apps.push(app);
+        }
+        console.log(apps);
+        res.render("dashboard",{
             tenant: tr.getRequestingTenant(req).tenant,
             tokenSet: req.userContext.tokens,
-            user: userProfile,
+            apps: apps
         });
     }
     catch(error) {
-        res.render("me",{
-            tenant: tr.getRequestingTenant(req).tenant,
-            tokenSet: req.userContext.tokens,
-            user: new userProfile(),
-            error: parseError(error)
-        });
+        console.log(error);
+         res.render("me",{
+             tenant: tr.getRequestingTenant(req).tenant,
+             tokenSet: req.userContext.tokens,
+             user: new userProfile(),
+             error: parseError(error)
+         });
     }
+
 });
 
-app.get("/logout", tr.ensureAuthenticated(), (req, res) => {
+router.get("/logout", tr.ensureAuthenticated(), (req, res) => {
     logger.verbose("/logout requsted")
     let protocol = "http"
     if(req.secure){
@@ -159,7 +160,6 @@ app.get("/logout", tr.ensureAuthenticated(), (req, res) => {
 });
 
 router.get("/error",async (req, res, next) => {
-    logger.warn(req)
     res.render("error",{
         msg: "An error occured, unable to process your request."
        });

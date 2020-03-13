@@ -1,7 +1,7 @@
 {
-  "name": "dashboard.atkoinc.nl",
+  "name": "account.atkoinc.nl",
   "version": "1.0.0",
-  "description": "Atko Dashboard",
+  "description": "Account Management Portal",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon .",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AtkoInc/dashboard.atkoinc.nl.git"
+    "url": "git+https://github.com/AtkoInc/account.atkoinc.nl.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AtkoInc/dashboard.atkoinc.nl/issues"
+    "url": "https://github.com/AtkoInc/account.atkoinc.nl/issues"
   },
-  "homepage": "https://github.com/AtkoInc/dashboard.atkoinc.nl#readme",
+  "homepage": "https://github.com/AtkoInc/account.atkoinc.nl#readme",
   "dependencies": {
     "atob": "^2.1.2",
     "axios": "^0.19.2",

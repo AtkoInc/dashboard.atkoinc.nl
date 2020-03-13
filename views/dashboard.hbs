@@ -1,0 +1,33 @@
+<!-- Items -->
+	<div class="items" id="row_a">
+
+		<div class="item intro span-2">
+			<h1>Dashboard</h1>
+			<p>A Okta custom dashboard example</p>
+		</div>
+	</div>
+	<div class="items" id="row_b">
+	</div>
+	<script>
+		var iCnt = 1;
+		var rowId = 'row_a'
+	</script>
+	{{#each apps}}
+		<script>
+			var appLinkUrl = "{{linkUrl}}";
+			var appLabel = "{{label}}";
+			var appLogoUrl = "{{logoUrl}}";
+
+			if ( iCnt % 2 == 0) {
+				rowId = 'row_a'
+				console.log(appLabel + 'is an even Number so row '+ rowId);
+			}else{
+				rowId = 'row_b'
+				console.log(appLabel + 'is an odd Number so row '+ rowId);
+			}
+			iCnt ++;
+			$( "#"+ rowId ).append( '<a href="{{linkUrl}}" target="_blank"><article class="item thumb span-1"><h2>{{label}}</h2><img style="" src="{{logoUrl}}" alt=""></h2></article></a>' );
+
+		</script>
+		
+	{{/each}}
