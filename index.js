@@ -1,5 +1,5 @@
 require('dotenv').config()
-
+require('https').globalAgent.options.rejectUnauthorized = false;
 const express = require('express')
 const hbs  = require('express-handlebars')
 const session = require('express-session')
@@ -118,7 +118,7 @@ router.get("/",tr.ensureAuthenticated(), async (req, res, next) => {
             apps.push(app);
         }
         console.log(apps);
-        res.render("dashboard",{
+        res.render("index",{
             tenant: tr.getRequestingTenant(req).tenant,
             tokenSet: req.userContext.tokens,
             apps: apps
@@ -126,7 +126,7 @@ router.get("/",tr.ensureAuthenticated(), async (req, res, next) => {
     }
     catch(error) {
         console.log(error);
-         res.render("me",{
+         res.render("index",{
              tenant: tr.getRequestingTenant(req).tenant,
              tokenSet: req.userContext.tokens,
              user: new userProfile(),
