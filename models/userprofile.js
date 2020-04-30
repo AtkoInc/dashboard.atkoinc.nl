@@ -11,7 +11,7 @@ class UserProfile {
                 this.phoneNumber = profileJson.profile.mobilePhone
                 this.email = profileJson.profile.email
                 this.title = profileJson.profile.title
-                this.account_type = profileJson.profile.account_type
+                this.accountType = profileJson.profile.account_type
                 if (profileJson.profile.mfa_preferred) {
                     this.mfaPreferred = profileJson.profile.mfa_preferred    
                 } else {
