@@ -15,6 +15,7 @@ const appLink = require('./models/applink')
 
 const PORT = process.env.PORT || 3000;
 
+
 app = express();
 app.use(express.json());
 
@@ -113,6 +114,10 @@ router.get("/",tr.ensureAuthenticated(), async (req, res, next) => {
         const response = await axios.get(tr.getRequestingTenant(req).tenant+'/api/v1/users/me/appLinks')
         var apps = [];
 
+        const response2 = await axios.get(tr.getRequestingTenant(req).tenant+'/api/v1/users/me')
+        var profile = new userProfile(response2.data)
+
+
         for(var idx in response.data){
             var app = new appLink(response.data[idx]);
             apps.push(app);
@@ -121,7 +126,8 @@ router.get("/",tr.ensureAuthenticated(), async (req, res, next) => {
         res.render("index",{
             tenant: tr.getRequestingTenant(req).tenant,
             tokenSet: req.userContext.tokens,
-            apps: apps
+            apps: apps,
+            user: profile
         });
     }
     catch(error) {

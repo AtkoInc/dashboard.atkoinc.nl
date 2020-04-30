@@ -36,11 +36,11 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown nav-user">
-                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gerry Groom</a>
+                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{user.firstName}} {{user.lastName}}</a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
-                                    <h5 class="mb-0 text-white nav-user-name">Gerry Groom </h5>
-                                    <span class="status"></span><span class="ml-2">{{account_type}}</span>
+                                    <h5 class="mb-0 text-white nav-user-name">{{user.userName}}</h5>
+                                    <span class="status"></span><span class="ml-2">{{user.accountType}}</span>
                                 </div>
                                 <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
                                 <a class="dropdown-item" href="/logout"><i class="fas fa-power-off mr-2"></i>Logout</a>
