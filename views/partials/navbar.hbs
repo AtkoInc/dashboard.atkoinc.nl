@@ -2,18 +2,96 @@
         <!-- navbar -->
         <!-- ============================================================== -->
         <div class="dashboard-header">
+            <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+            <style>
+                .dashboard-wrapper {
+                    top:50px!important;
+                }
+
+
+                body {
+                    font-family: Arial, sans-serif !important;
+                    background-color: #f2f2f2 !important;
+                }
+
+                .dashboard-header .navbar {
+                    padding: 0px;
+                    min-height: 45px;
+                }
+                .navbar-right-top .nav-item .nav-link {
+                    padding: 13px 20px;
+                    font-size: 16px;
+                    line-height: 2;
+                    color: #fff;
+                    font-size: 95%;
+                    font-weight: bold;
+                }
+
+                .nav-logout {
+                    margin-right: 0vw!important;   
+                    margin-right: 20vw!important;
+                    background-color: #f37021;
+                }
+
+                .nav-user-img {
+                    text-transform: uppercase;
+                }
+
+                .bg-white {
+                    background-color: #000!important;
+                }
+
+                .logo {
+                    padding-top: 30px !important;
+                }
+
+                .logo-vertical-strip {
+                    margin-left: 15vw;
+                    overflow: auto;
+                    position: absolute;
+                    z-index: 9999;
+                    top: -48px;
+                    left: 0;
+                    height: 170px;
+                    width: 60px;
+                    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.2);
+                    background-image: linear-gradient(32deg, rgba(0, 150, 119, 1) 0%, rgba(141, 198, 63, 1) 100%);
+                }
+
+                    .logo-vertical-strip .logo {
+                        height: 42px;
+                        width: 40px;
+                        position: absolute;
+                        left: 10px;
+                        bottom: 13px;
+                        font-size: 0;
+                        outline: 0;
+                        display: block;
+                        background-repeat: no-repeat;
+                        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MCA0MiI+ICA8cGF0aCBmaWxsPSIjRkZGIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMjMuOTE5MjEsODguNjkyNjM2OSBDMjI1LjIyODgyOSw4OS45Nzk4MDkxIDIyNi4yNjQ0NjcsOTEuMzQ3OTY0NCAyMjYuODk0MTU2LDkyLjYzNTEzNjYgQzIyNi4zODk3MzUsOTQuNjMyMDY0MSAyMjMuMDIxNTY4LDk3LjQ4ODIwMzcgMjE5LjIyNzM1NiwxMDAuMDEzMTY4IEMyMTkuMjE5MzE4LDEwMC41MTM1NTIgMjE5LjIxNTk2OCwxMDAuOTc5MDQxIDIxOS4yMTU5NjgsMTAxLjM2NTUyMiBDMjE5LjIxNTk2OCwxMDEuODM3NTk1IDIxOS4yMTkzMTgsMTAyLjI4NTMwNyAyMTkuMjMwNzA2LDEwMi43NjI2NDcgQzIyMy43MzA5NzMsMTAwLjQ5NDQ1OCAyMjguNjE1MDgzLDk4LjcxMjE2OTQgMjMwLjgzMzA2Miw5OS4zMzg5NjYzIEMyMzEuNjUzNjY4LDEwMC41MTc1MDIgMjMyLjM0MzY0NiwxMDIuMDgxODYxIDIzMi44MjI2MTIsMTAzLjgzOTc4OSBDMjMzLjM0MTEsMTA1LjczOTI3NCAyMzMuNDgzNzg1LDEwNy41MDI0NjkgMjMzLjMxNjMxNSwxMDguOTkyNDI4IEMyMzQuMjIxMzI1LDExMC4xMzg3MDMgMjM1LjE5MTk4NCwxMTEuMDM2MTAyIDIzNi4xMjcxNCwxMTEuNjA4MjUyIEMyMzYuNjc1NzczLDEwOC43OTE2MTYgMjM3LjAwMTMzNiwxMDUuNzk4NTMgMjM2Ljk5OTk5NiwxMDIuNzA2NjgzIEMyMzYuOTk3MzE2LDk4Ljk2MzY3ODMgMjM2LjU3NDYyMSw5NS4zOTMxNzQ2IDIzNS43Nzg4MDEsOTIuMDY2OTM3MyBDMjMzLjI0NjY0Nyw4OS43Mjg5NTg2IDIzMC4zMDMxODUsODcuNTc0NjczNSAyMjcuMDA0Njg2LDg1LjcwNDE1ODkgQzIyNC4yNzc1OTcsODQuMTU3NTc3MSAyMjEuNDc4ODMsODIuOTQxNTEyMSAyMTguNzIwOTI1LDgyIEMyMTguNzU5Nzc5LDgzLjA4MDQzNDUgMjE5LjA2MzIzNSw4NC4zNTQ0Mzg3IDIxOS42MjMyNTYsODUuNjk2MjU4MSBDMjIxLjAxNzk1MSw4Ni4zMDAwMTEgMjIyLjUwMzA3OSw4Ny4zMDM0MTI3IDIyMy45MTkyMSw4OC42OTI2MzY5IFogTTE5OC4yMjA1MjYsOTIuMDY2OTM3MyBDMTk3LjQyNjA0Niw5NS4zOTMxNzQ2IDE5Ny4wMDMzNSw5OC45NjM2NzgzIDE5Ny4wMDAwMDEsMTAyLjcwNjY4MyBDMTk2Ljk5OTMzMSwxMDUuNzk4NTMgMTk3LjMyNDg5NCwxMDguNzkxNjE2IDE5Ny44NzI4NTcsMTExLjYwODI1MiBDMTk4LjgwODAxMywxMTEuMDM2MTAyIDE5OS43ODAwMTEsMTEwLjEzODcwMyAyMDAuNjgzNjgyLDEwOC45OTI0MjggQzIwMC41MTc1NTEsMTA3LjUwMjQ2OSAyMDAuNjU4MjI3LDEwNS43MzkyNzQgMjAxLjE3NzM4NSwxMDMuODM5Nzg5IEMyMDEuNjU3NjkxLDEwMi4wODE4NjEgMjAyLjM0Njk5OSwxMDAuNTE3NTAyIDIwMy4xNjYyNjUsOTkuMzM4OTY2MyBDMjA1LjM4NjI1NCw5OC43MTIxNjk0IDIxMC4yNjkwMjQsMTAwLjQ5NDQ1OCAyMTQuNzY5OTYxLDEwMi43NjI2NDcgQzIxNC43ODEzNDksMTAyLjI4NTMwNyAyMTQuNzg0Njk5LDEwMS44Mzc1OTUgMjE0Ljc4NDY5OSwxMDEuMzY1NTIyIEMyMTQuNzg0Njk5LDEwMC45NzkwNDEgMjE0Ljc4MDY3OSwxMDAuNTEzNTUyIDIxNC43NzE5NzEsMTAwLjAxMzE2OCBDMjEwLjk3OTA5OSw5Ny40ODgyMDM3IDIwNy42MTAyNjIsOTQuNjMyMDY0MSAyMDcuMTA1ODQxLDkyLjYzNTEzNjYgQzIwNy43MzY4Nyw5MS4zNDc5NjQ0IDIwOC43NzA0OTgsODkuOTc5ODA5MSAyMTAuMDgxNDU3LDg4LjY5MjYzNjkgQzIxMS40OTgyNTcsODcuMzAzNDEyNyAyMTIuOTgyNzE2LDg2LjMwMDAxMSAyMTQuMzc4MDgsODUuNjk2MjU4MSBDMjE0LjkzOTQ0MSw4NC4zNTQ0Mzg3IDIxNS4yNDE1NTgsODMuMDgwNDM0NSAyMTUuMjc4NDAyLDgyIEMyMTIuNTIyNTA3LDgyLjk0MTUxMjEgMjA5LjcyMTczLDg0LjE1NzU3NzEgMjA2Ljk5NTMxMSw4NS43MDQxNTg5IEMyMDMuNjk2ODEyLDg3LjU3NDY3MzUgMjAwLjc1NDAyLDg5LjcyODk1ODYgMTk4LjIyMDUyNiw5Mi4wNjY5MzczIFogTTIxNS4yNzUwNTIsOTMuMjYzMjUwMyBDMjEzLjM3OTk1Niw5My40MDU0NjQ3IDIxNC4zMDc3NDMsOTUuNzYyNTM3IDIxNS42NzYzMTIsOTUuNzM3NTE3OCBDMjE1LjgyMTAwNiw5Ni45NzM5OTMyIDIxNS44OTY3MDMsOTkuODA5MDY0IDIxNS44OTY3MDMsMTAxLjM2OTQ3MiBDMjE1Ljg5NjcwMywxMDcuMTU2MTUxIDIxNS4wODQxMzYsMTE0LjIzNTkyNyAyMTMuMDU4NDEzLDExNi4xNTEyMTMgQzIxMS42MTE0NjgsMTE2LjI2MjQ4MiAyMDkuODg2NTIxLDExNi4wNjQ5NjIgMjA4LjA5NTI1NywxMTUuNTkyMjMxIEMyMDYuMTYxMzA3LDExNS4wODQ2MDQgMjA0LjUzNDgzNCwxMTQuMzIzNDk0IDIwMy4zMDU2LDExMy40Mzk5MjEgQzIwMS44NDA1NjgsMTEzLjYzMzQ5MSAyMDAuNTY2NDUzLDExNC4wMTE0MTIgMTk5LjU5NTEyNCwxMTQuNTIwMzU2IEMyMDEuODAyMzg1LDExNi4zOTYxMzcgMjA0LjI3NjI1OSwxMTguMTY3ODkyIDIwNy4wMDEzNCwxMTkuNzEyNDk5IEMyMTAuMjEwMDc0LDEyMS41MzI5NzUgMjEzLjc0NDM3MiwxMjMuMDIxNjE3IDIxNi45OTk5OTgsMTI0IEMyMjAuMjIxNDYxLDEyMy4wMjE2MTcgMjIzLjc4OTkyMywxMjEuNTMyOTc1IDIyNi45OTg2NTcsMTE5LjcxMjQ5OSBDMjI5LjcyMzA2OCwxMTguMTY3ODkyIDIzMi4xOTY5NDIsMTE2LjM5NjEzNyAyMzQuNDA1NTQzLDExNC41MjAzNTYgQzIzMy40MzM1NDQsMTE0LjAxMTQxMiAyMzIuMTU5NDI4LDExMy42MzM0OTEgMjMwLjY5MzcyNywxMTMuNDM5OTIxIEMyMjkuNDY1MTYzLDExNC4zMjQ4MTEgMjI3LjgzODAyLDExNS4wODcyMzggMjI1LjkwNDc0LDExNS41OTQ4NjQgQzIyNC4xMTI4MDYsMTE2LjA2NDk2MiAyMjIuMzg5ODY5LDExNi4yNjI0ODIgMjIwLjk0MTU4NCwxMTYuMTUyNTI5IEMyMTguOTE1MTkxLDExNC4yMzU5MjcgMjE4LjEwMjYyNCwxMDcuMTU2MTUxIDIxOC4xMDI2MjQsMTAxLjM2OTQ3MiBDMjE4LjEwMjYyNCw5OS44MDk3MjI0IDIxOC4xNzgzMjEsOTYuOTc1OTY4NCAyMTguMzIzNjg1LDk1LjczNzUxNzggQzIxOS42OTA5MTUsOTUuNzYzMTk1NCAyMjAuNjIwMDQxLDkzLjQwNTQ2NDcgMjE4LjcyNDk0NSw5My4yNjMyNTAzIEMyMTkuNzE0MzYsOTIuNjg1MTc1IDIyMC4zNzYyMDQsOTEuNjIzODM0MSAyMjAuMzc2MjA0LDkwLjQxMzAzNjMgQzIyMC4zNzYyMDQsODguNTgxMzY3MyAyMTguODYzNjEsODcuMDk3MzMzNSAyMTYuOTk5OTk4LDg3LjA5NjY3NTEgQzIxNS4xMzYzODcsODcuMDk3MzMzNSAyMTMuNjIzNzkzLDg4LjU4MTM2NzMgMjEzLjYyMzc5Myw5MC40MTEwNjExIEMyMTMuNjIzNzkzLDkxLjYyMzgzNDEgMjE0LjI4NDk2Nyw5Mi42ODQ1MTY2IDIxNS4yNzUwNTIsOTMuMjYzMjUwMyBaIE0yMTYuOTk5OTk4LDg4Ljg4MTU5NzcgQzIxNy44Njk1MDUsODguODgxNTk3NyAyMTguNTU4ODE0LDg5LjU2Njk5MjIgMjE4LjU1ODgxNCw5MC40MTMwMzYzIEMyMTguNTU4ODE0LDkxLjI1Nzc2MzYgMjE3Ljg2MDEyNyw5MS45NDQ0NzQ5IDIxNi45OTk5OTgsOTEuOTQ0NDc0OSBDMjE2LjEzODUzLDkxLjk0NDQ3NDkgMjE1LjQ0MTE4Myw5MS4yNTc3NjM2IDIxNS40NDExODMsOTAuNDExMDYxMSBDMjE1LjQ0MTE4Myw4OS41NjY5OTIyIDIxNi4xMzI1MDEsODguODgxNTk3NyAyMTYuOTk5OTk4LDg4Ljg4MTU5NzcgWiBNMjIyLjQ3Njk1NCwxMDcuMzI2MDE4IEMyMjEuNzcwMjI4LDEwOC40NzU1ODQgMjIzLjM4NTMxNCwxMTAuNDQzNTQyIDIyNC40NTc3OTUsMTA4LjkwNDIwMyBDMjI0LjQ3MjUzMiwxMTAuMDM0MDE3IDIyNS4wNzY3NjYsMTExLjEyNjk2MSAyMjYuMTQ1MjI4LDExMS43MzI2OSBDMjI3Ljc1OTY0MywxMTIuNjQ3MjA3IDIyOS44MjQ4OSwxMTIuMTAyMDUyIDIzMC43NTkzNzUsMTEwLjUxOTkxNyBDMjMxLjY4OTE3MSwxMDguOTMzODMxIDIzMS4xMzY1MTksMTA2LjkwNDY0MiAyMjkuNTIxNDMzLDEwNS45ODg4MDcgQzIyOC40NTI5NzEsMTA1LjM4MzA3OSAyMjcuMTg4MjM0LDEwNS40MTY2NTggMjI2LjE4MjA3MSwxMDUuOTcxMDMgQzIyNy4wMDUzNTYsMTA0LjI4NjE4NSAyMjQuNDYxODE0LDEwMy44OTcwNyAyMjMuODAwNjQxLDEwNS4wNzQ5NDggQzIyMi43NjcwMTMsMTA0LjYzNTEzNyAyMjAuNjU0MjA1LDEwMy41NTczMzYgMjE5LjIzMDcwNiwxMDIuNzY2NTk3IEMyMTkuMjQ4NzkyLDEwMy42MzYzNDQgMjE5LjI4NjMwNiwxMDQuNDcwNTM3IDIxOS4zNDE5MDYsMTA1LjMyNjQ1NyBDMjIwLjUzMTYxNiwxMDYuMDQwODIxIDIyMS44MTMxMDEsMTA2Ljg0MDExOSAyMjIuNDc2OTU0LDEwNy4zMjYwMTggWiBNMjI2LjQ4Mjg0OCwxMDguMDk1Njg3IEMyMjYuOTE0MjUyLDEwNy4zNjIyMyAyMjcuODY3NDk0LDEwNy4xMTQwMTMgMjI4LjYxMzA3MywxMDcuNTM2MDQ3IEMyMjkuMzYwNjYxLDEwNy45NTkzOTkgMjI5LjYxOTIzNiwxMDguODg5MDYgMjI5LjE4MzgxMywxMDkuNjI3Nzg0IEMyMjguODk0NDI0LDExMC4xMjA5MjYgMjI4LjM3MzkyNSwxMTAuMzkyODQ1IDIyNy44MzYwMSwxMTAuMzkyODQ1IEMyMjcuNTcwNzM3LDExMC4zOTI4NDUgMjI3LjMwMTQ0NCwxMTAuMzI3NjY0IDIyNy4wNTQ5MjcsMTEwLjE4ODc0MSBDMjI2LjMwODAwOSwxMDkuNzY0MDczIDIyNi4wNTM0NTQsMTA4LjgyNzE3IDIyNi40ODI4NDgsMTA4LjA5NTY4NyBaIE0yMDcuODE3OTI2LDEwNS45NzEwMyBDMjA2LjgxMzEwMywxMDUuNDE2NjU4IDIwNS41NDcwMjYsMTA1LjM4MzA3OSAyMDQuNDc4NTY0LDEwNS45ODg4MDcgQzIwMi44NjQxNDgsMTA2LjkwNDY0MiAyMDIuMzExNDk2LDEwOC45MzM4MzEgMjAzLjI0MTk2MiwxMTAuNTE5OTE3IEMyMDQuMTc0NDM3LDExMi4xMDIwNTIgMjA2LjI0MDM1NCwxMTIuNjQ3MjA3IDIwNy44NTQ3NjksMTExLjczMjY5IEMyMDguOTIyNTYxLDExMS4xMjY5NjEgMjA5LjUyNjc5NSwxMTAuMDM0MDE3IDIwOS41NDIyMDIsMTA4LjkwNDIwMyBDMjEwLjYxNjAyMywxMTAuNDQzNTQyIDIxMi4yMzExMDgsMTA4LjQ3NTU4NCAyMTEuNTIzMDQzLDEwNy4zMjYwMTggQzIxMi4xODY4OTYsMTA2Ljg0MDExOSAyMTMuNDY4MzgsMTA2LjA0MDgyMSAyMTQuNjYwMTAxLDEwNS4zMjY0NTcgQzIxNC43MTU3MDEsMTA0LjQ3MDUzNyAyMTQuNzUyNTQ0LDEwMy42MzYzNDQgMjE0Ljc3MDYzMSwxMDIuNzY2NTk3IEMyMTMuMzQ2NDYyLDEwMy41NTczMzYgMjExLjIzMjk4NCwxMDQuNjM1MTM3IDIxMC4yMDAwMjYsMTA1LjA3NDk0OCBDMjA5LjUzODg1MywxMDMuODk3MDcgMjA2Ljk5Mzk3MSwxMDQuMjg2MTg1IDIwNy44MTc5MjYsMTA1Ljk3MTAzIFogTTIwNS4zODY5MjQsMTA3LjUzNjA0NyBDMjA2LjEzMTgzMywxMDcuMTE0MDEzIDIwNy4wODUwNzUsMTA3LjM2MjIzIDIwNy41MTY0NzksMTA4LjA5NTY4NyBDMjA3Ljk0NjU0MywxMDguODI3MTcgMjA3LjY5MTk4OCwxMDkuNzY0MDczIDIwNi45NDU3MzksMTEwLjE4ODc0MSBDMjA2LjY5OTIyMywxMTAuMzI3NjY0IDIwNi40MjkyNiwxMTAuMzkyODQ1IDIwNi4xNjM5ODcsMTEwLjM5Mjg0NSBDMjA1LjYyODA4MSwxMTAuMzkyODQ1IDIwNS4xMDY5MTMsMTEwLjEyMDkyNiAyMDQuODE2MTg0LDEwOS42Mjc3ODQgQzIwNC4zODA3NjEsMTA4Ljg4OTA2IDIwNC42NDA2NzUsMTA3Ljk1OTM5OSAyMDUuMzg2OTI0LDEwNy41MzYwNDcgWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTE5NyAtODIpIi8+PC9zdmc+);
+                    }
+
+
+            </style>
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
-                <a class="navbar-brand" href="index.html"> <img style="height: 30px; margin-bottom: 10px;" src="assets/images/icons/logo.png" alt="" > Atko inc.</a>
+                <!-- OML HTML -->
+                <a href="http://www.oldmutual.co.za" target="_blank" class="h-logo">
+                    <span class="logo-vertical-strip">
+                        <span class="logo"></span>
+                    </span>
+                </a>
+                <!-- OML HTML -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto navbar-right-top">
-                        <li class="nav-item dropdown connection">
-                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th"></i> </a>
+                        <li style="display:none;" class="nav-item dropdown connection">
+                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-fw fa-th"></i> </a>
                             <ul class="dropdown-menu dropdown-menu-right connection-dropdown">
                                 <li class="connection-list">
                                     <div class="row">
+                                        Test: {{test1}}
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
                                             <a href="https://myaccount.atkoinc.nl" class="connection-item"><img src="assets/images/icons/account.png" alt="" > <span>Account</span></a>
                                         </div>
@@ -36,19 +114,67 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown nav-user">
-                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{user.firstName}} {{user.lastName}}</a>
+                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img style="margin-top: -4px; height: 15px; padding-right:5px;" src="assets/images/user-64.png"/> {{user.firstName}} {{user.lastName}}</a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
-                                    <h5 class="mb-0 text-white nav-user-name">{{user.userName}}</h5>
+                                    <h5 class="mb-0 text-white nav-user-name"> {{user.userName}}</h5>
                                     <span class="status"></span><span class="ml-2">{{user.accountType}}</span>
                                 </div>
                                 <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
                                 <a class="dropdown-item" href="/logout"><i class="fas fa-power-off mr-2"></i>Logout</a>
                             </div>
                         </li>
+                        <!-- OML HTML -->
+                        <li class="nav-item dropdown nav-user">
+                            <a class="nav-link nav-user-img nav-logout" href="/logout" id="navbarDropdownMenuLink2">LOGOUT</a>
+                        </li>
+                        <!-- OML HTML -->   
+
                     </ul>
                 </div>
             </nav>
+        </div>
+        <style>
+            .nav2-container {
+                background-color: #fff;
+                height: 100px;
+                top: 10px !important;
+                position: absolute;
+                width: 100vw;
+                
+            }
+
+            .primary-links {
+                padding-top: 50px;
+                margin-left: 25vw;
+            }
+
+            .nav-menuitem {
+                display: inline;
+                float: left;
+                padding: 10px;
+                color: #009677;
+            }
+
+            .nav-menuitem-button:hover {
+                color:red;
+            }
+
+            .nav-menuitem:hover {
+                color: #50b848!important;
+            }
+
+            .activeitem {
+                color: #009677!important;
+                font-weight: bold;
+            }            
+        </style>
+        <div class="nav2-container">
+            <ul class="primary-links list-inline">
+                    <li class="nav-menuitem-button"><a class="nav-menuitem portalHome activeitem" href="/">PORTAL HOME</a></li>
+                    <li class="nav-menuitem-button"><a class="nav-menuitem" href="/getaccess">ACCESS MORE SITES</a></li>
+                    <li class="nav-menuitem-button"><a class="nav-menuitem" href="#">CONTACT US</a></li>
+                </ul>
         </div>
         <!-- ============================================================== -->
         <!-- end navbar -->

@@ -88,13 +88,19 @@ function parseError(error){
         } 
 
         if(error.response.data.errorSummary){
+            console.log(error);
+            console.log('1');
             return error.response.data.errorSummary
         }
         if (error.response.data.error_description){
+            console.log(error);
+            console.log('2');
         return error.response.data.error_description
         }
         else {
             logger.error(error)
+            console.log(error);
+            console.log('3');
             return "Unable to parse error cause. Check console."
         }
     } catch(error){
@@ -103,6 +109,7 @@ function parseError(error){
 }
 
 const router = express.Router();
+    console.log('xxx');
 
 router.get("/",tr.ensureAuthenticated(), async (req, res, next) => {
     logger.verbose("/ requested")
@@ -122,17 +129,53 @@ router.get("/",tr.ensureAuthenticated(), async (req, res, next) => {
             var app = new appLink(response.data[idx]);
             apps.push(app);
         }
+        var appAccountUrl = process.env.SESSION_SECRET;
         console.log(apps);
         res.render("index",{
             tenant: tr.getRequestingTenant(req).tenant,
             tokenSet: req.userContext.tokens,
             apps: apps,
-            user: profile
+            user: profile,
+            test1: appAccountUrl
         });
     }
     catch(error) {
-        console.log(error);
+         console.log(error);
          res.render("index",{
+             tenant: tr.getRequestingTenant(req).tenant,
+             tokenSet: req.userContext.tokens,
+             user: new userProfile(),
+             error: parseError(error)
+         });
+    }
+
+});
+
+router.get("/getaccess",tr.ensureAuthenticated(), async (req, res, next) => {
+    logger.verbose("/ requested")
+    const requestingTenant = tr.getRequestingTenant(req);
+
+    const tokenSet = req.userContext.tokens;
+    axios.defaults.headers.common['Authorization'] = `Bearer `+tokenSet.access_token
+    try {
+        const response2 = await axios.get(tr.getRequestingTenant(req).tenant+'/api/v1/users/me')
+        var profile = new userProfile(response2.data)
+
+        for(var idx in response.data){
+            var app = new appLink(response.data[idx]);
+            apps.push(app);
+        }
+        var appAccountUrl = process.env.SESSION_SECRET;
+        console.log(apps);
+        res.render("getaccess",{
+            tenant: tr.getRequestingTenant(req).tenant,
+            tokenSet: req.userContext.tokens,
+            user: profile,
+        });
+    }
+    catch(error) {
+         console.log(error);
+         res.render("getaccess",{
              tenant: tr.getRequestingTenant(req).tenant,
              tokenSet: req.userContext.tokens,
              user: new userProfile(),
@@ -166,6 +209,7 @@ router.get("/logout", tr.ensureAuthenticated(), (req, res) => {
 });
 
 router.get("/error",async (req, res, next) => {
+    console.log('General error');
     res.render("error",{
         msg: "An error occured, unable to process your request."
        });

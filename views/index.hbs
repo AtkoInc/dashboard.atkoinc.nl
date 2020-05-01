@@ -1,5 +1,38 @@
-    <script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+        <script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+        <style>
+            .dashboard-wrapper {
+                position: relative;
+                margin-top: 80px;
+                margin: 0 auto;
+                max-width:600px;
+                background-color: #fff;
+                z-index: 99;
+                min-height: auto!important;
 
+            }
+            .card {
+                width: 100%;
+                border: solid 1px #009677;
+                line-height: 25px;
+                padding: 10px;
+                border-radius: 0px;
+            }
+
+            .card-title {
+                color: #009677;
+                font-size: 16px ;
+                font-family: Arial, sans-serif !important;
+                font-weight: bold;
+            }
+
+            .card-header {
+                border: 0px !important;
+            }
+
+            .dashboard-content {
+                margin-top: 80px !important;
+            }
+        </style>
         <!-- ============================================================== -->
         <!-- wrapper  -->
         <!-- ============================================================== -->
@@ -13,28 +46,61 @@
                             <div class="row">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <div class="page-header" id="top">
-                                        <h2 class="pageheader-title">Application launchpad</h2>
+                                        <h2 class="pageheader-title">Your websites</h2>
                                     </div>
                                 </div>
                             </div>
                             <!-- ============================================================== -->
                             <!-- end pageheader -->
                             <!-- ============================================================== -->
-                            <div class="row">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <div class="section-block" id="basicform">
-                                        <p>This custom portal page will offer access to all the applications you have been assigned by your administrator</p>
-                                    </div>
-                                </div>
-                            </div>
                             <div id="cnt_appLinks" class="row">
 
+                            </div>
+                            <div class="row" style="width:100%;">
+                                <span style="width:100%; text-align: right;"><a style="color: #009677; font-weight: bold;" href="#">Get access to more sites > </a></span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        <style>
+            .shadow {
+                background-color: red;
+                z-index: 2;
+                position: absolute;
+                background-image: url('assets/images/bg_shadow.jpg')
+            }
+        </style>
+        <div class="shadow">
+        x
+        </div>
+        <script type="text/javascript">
+            function setShadow() {
+              $(".shadow").css({
+                'width': ($(".dashboard-wrapper").width() + 'px')
+              });
+              $(".shadow").css({
+                'height': ($(".dashboard-wrapper").height() + 'px')
+              });
+              var marginLeft = parseInt($(".dashboard-wrapper").css("margin-left"))+50;
+              var marginTop = parseInt($(".dashboard-wrapper").css("margin-top"))-parseInt(($(".dashboard-wrapper").height() + 'px'))+100
+              console.log(marginLeft);
+              $(".shadow").css({
+                'margin-left': marginLeft+ 'px'
+              });
+              $(".shadow").css({
+                'margin-top': marginTop+ 'px'
+              });
+            }
 
+            $(document).ready(function() {
+                setShadow();
+            });            
+
+            $( window ).resize(function() {
+                setShadow();
+            }); 
+        </script>
     <script>
         var iCnt = 1;
         var rowId = 'row_a'
@@ -49,12 +115,12 @@
             iCnt ++;
             
             var sHtml = ''
-            sHtml = sHtml + '<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">';
+//            sHtml = sHtml + '<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">';
             sHtml = sHtml + '<div class="card">';
             sHtml = sHtml + '<div class="card-header"><h3 class="card-title mb-2">{{label}}</h3></div>';
-            sHtml = sHtml + '<img class="img-fluid img-applink" src="{{logoUrl}}" alt="Card image cap">';
-            sHtml = sHtml + '<div class="card-body"><a href="{{linkUrl}}" target="_new" class="btn btn-primary">Open</a>';
-            sHtml = sHtml + '</div>';
+//            sHtml = sHtml + '<img class="img-fluid img-applink" src="{{logoUrl}}" alt="Card image cap">';
+//            sHtml = sHtml + '<div class="card-body"><a href="{{linkUrl}}" target="_new" class="btn btn-primary">Open</a>';
+//            sHtml = sHtml + '</div>';
             sHtml = sHtml + '</div>';
                                 
             $("#cnt_appLinks").append(sHtml);
