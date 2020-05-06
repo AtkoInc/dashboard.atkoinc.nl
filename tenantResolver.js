@@ -72,7 +72,7 @@ class TenantResolver {
 
     registerTenantRoutes(tenant,sub){
         passport.use(sub, new OidcStrategy({
-            issuer: tenant.tenant,
+            issuer: tenant.issuer,
             authorizationURL: tenant.authorizationURL,
             tokenURL: tenant.tokenURL,
             userInfoURL: tenant.userInfoURL,
