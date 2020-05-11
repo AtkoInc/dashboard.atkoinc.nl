@@ -10,14 +10,15 @@ var passport = require('passport');
 var logger = require('./logger')
 
 const tenantResolver = require('./tenantResolver')
+const ProgressiveProfiler = require ('./progressiveProfiler')
 const userProfile = require('./models/userprofile')
 const appLink = require('./models/applink')
 
 const PORT = process.env.PORT || 3000;
 
-
 app = express();
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.engine('hbs',  hbs( { 
     extname: 'hbs', 
@@ -65,6 +66,7 @@ passport.serializeUser((user, next) => {
   });
 
 const tr = new tenantResolver();
+const pp = new ProgressiveProfiler(tr);
 
 function parseJWT (token){
     var atob = require('atob');
@@ -111,7 +113,7 @@ function parseError(error){
 const router = express.Router();
     console.log('xxx');
 
-router.get("/",tr.ensureAuthenticated(), async (req, res, next) => {
+router.get("/",[tr.ensureAuthenticated(),pp.ensureProfiled()], async (req, res, next) => {
     logger.verbose("/ requested")
     const requestingTenant = tr.getRequestingTenant(req);
 
@@ -207,6 +209,12 @@ router.get("/logout", tr.ensureAuthenticated(), (req, res) => {
         + encodeURI(protocol+"://"+req.headers.host)
         );
 });
+
+var activateRouter = require('./routes/activate')(tr)
+var profileRouter = require('./routes/profile')(tr)
+app.use('/activate',activateRouter)
+app.use('/profile',profileRouter)
+
 
 router.get("/error",async (req, res, next) => {
     console.log('General error');
