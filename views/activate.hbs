@@ -1,0 +1,23 @@
+{{#if pwdReset}}
+    <form action="/activate" method="POST">
+        <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+            <span class="text-nowrap">password</span>
+            <input type="password" name="password" id="password" class="form-control" placeholder="enter your password here">
+            <input type="hidden" name="state" id="state" value="{{state}}" />
+            </div>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+            <button type="submit" class="btn btn-primary my-4">Set password</button>
+            </div>
+        </div>
+        </div>
+    </form>
+{{else}}
+Thank you for activating your account.
+<a href="/">Continue</a>
+{{/if}}

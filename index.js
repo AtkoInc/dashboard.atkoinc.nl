@@ -17,7 +17,8 @@ const PORT = process.env.PORT || 3000;
 
 
 app = express();
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.engine('hbs',  hbs( { 
     extname: 'hbs', 
@@ -164,6 +165,10 @@ router.get("/logout", tr.ensureAuthenticated(), (req, res) => {
         + encodeURI(protocol+"://"+req.headers.host)
         );
 });
+
+var activateRouter = require('./routes/activate')(tr)
+app.use('/activate',activateRouter)
+
 
 router.get("/error",async (req, res, next) => {
     res.render("error",{
