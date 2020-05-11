@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 const UserProfile = require('../models/userprofile')
+var logger = require('../logger')
 
 module.exports = function (_oidc){
     oidc = _oidc;
@@ -31,6 +32,7 @@ module.exports = function (_oidc){
             res.render('error', {msg: 'Incorrect activation token provided, please follow the link in your registration email.'})
         }
         else {
+            logger.error(err)
             // set locals, only providing error in development
             res.locals.message = err.message;
             res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -70,7 +72,7 @@ module.exports = function (_oidc){
             res.render('activate', { state: req.body.state, pwdReset: true, user:new UserProfile()});
         }
         else{
-            console.log(err)
+            logger.error(err)
             // set locals, only providing error in development
             res.locals.message = err.message;
             res.locals.error = req.app.get('env') === 'development' ? err : {};
