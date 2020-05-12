@@ -5,7 +5,7 @@ const UserProfile = require('../models/userprofile')
 var logger = require('../logger')
 
 module.exports = function (_oidc){
-    oidc = _oidc;
+    oidc = _oidc
 
   router.get('/'), function (req,res){
       res.render('error', {msg: 'Sorry no activation token was provided, please follow the link in you registration email.'})
@@ -14,21 +14,25 @@ module.exports = function (_oidc){
   router.get('/:token', async function(req, res, next) {
     var token = req.params.token;
     req.url = '/activate'
+    logger.verbose("user activating")
     try{
-    var response = await axios.post(process.env.TENANT+'/api/v1/authn',
+    var response = await axios.post(oidc.getRequestingTenant(req).tenant+'/api/v1/authn',
         {
             token: token
         });
         var status = response.data.status
         switch(status){
             case "SUCCESS":
+                logger.verbose("no password set required")
                 res.render('activate');
             case "PASSWORD_RESET":
+                logger.verbose("displaying password reset to user")
                 res.render('activate', { state: response.data.stateToken, pwdReset: true, user: new UserProfile(response.data._embedded.user)});
         }        
     }
     catch (err){
         if(err.response.status == 401){
+            logger.warn("invalid activation code provided.")
             res.render('error', {msg: 'Incorrect activation token provided, please follow the link in your registration email.'})
         }
         else {
@@ -45,10 +49,10 @@ module.exports = function (_oidc){
   });
 
   router.post('/', async function (req,res,next){
-
     try {
+        var tenant = oidc.getRequestingTenant(req)
         var response = await axios.post(
-            process.env.TENANT+'/api/v1/authn/credentials/reset_password',
+            tenant.tenant+'/api/v1/authn/credentials/reset_password',
             {
                 stateToken: req.body.state,
                 newPassword: req.body.password
@@ -60,7 +64,7 @@ module.exports = function (_oidc){
         if(req.body.username != response.data._embedded.user.profile.login){
             logger.verbose("User proivded new value for username")
             await axios.post(
-                process.env.TENANT+'/api/v1/users/'+response.data._embedded.user.id,
+                tenant.tenant+'/api/v1/users/'+response.data._embedded.user.id,
                 {
                     profile:{
                         login: req.body.username
@@ -73,7 +77,8 @@ module.exports = function (_oidc){
         //TODO convert response.data.sessionToken to session
         
         if(response.data.status === "SUCCESS" || response.data.status === "MFA_ENROLL"){
-                res.render('activate', { title: 'Activate Your Account', msg: "Your account has been activated. Please login to continue."});
+                console.log(req)
+                res.render('activate', {redirect: tenant.tenant+'/login/sessionCookieRedirect?token='+response.data.sessionToken+'&redirectUrl='+req.headers.origin});
         } else {
                 res.render('activate', { title: 'Activate Your Account', msg: "Failed: status was "+response.data.status});
         }
