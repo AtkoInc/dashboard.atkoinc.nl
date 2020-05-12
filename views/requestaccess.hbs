@@ -1,0 +1,130 @@
+        <script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+        <style>
+            .dashboard-wrapper {
+                position: relative;
+                margin: 0 auto;
+                min-height: 870px !important;
+                max-width:600px;
+                background-color: #fff;
+
+            }
+
+
+            .card {
+                width: 100%;
+                border: solid 1px #009677;
+                line-height: 25px;
+                padding: 10px;
+                border-radius: 0px;
+            }
+
+            .card-title {
+                color: #009677;
+                font-size: 16px ;
+                font-family: Arial, sans-serif !important;
+                font-weight: bold;
+            }
+
+            .card-header {
+                border: 0px !important;
+            }
+
+            .requestlinks {
+                background-color: #d4e8dc;
+                margin-left: -30px; 
+                margin-right: -30px; 
+                margin-top: 10px; 
+            }
+
+            .requestlist li {
+                padding: 10px;
+                list-style: none;
+                margin-bottom: 10px;
+            }
+
+            .resultmessage {
+                width: 100%;
+                font-weight: bolder;
+                padding: 10px;
+                display:none;
+                margin-top: 10px; 
+                margin-bottom: 30px; 
+            }
+
+            .success {
+                color: #009677;
+                background-color: #d4e8dc;
+            }
+
+            .error {
+                color:#dc3545;
+                background-color: #ffc4ca;
+            }
+
+        </style>
+        <!-- ============================================================== -->
+        <!-- wrapper  -->
+        <!-- ============================================================== -->
+        <div class="dashboard-wrapper">
+            <div class="container-fluid dashboard-content">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <!-- ============================================================== -->
+                            <!-- pageheader -->
+                            <!-- ============================================================== -->
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="page-header" id="top">
+                                        <h2 class="pageheader-title">Add a secure site to your profile</h2>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ============================================================== -->
+                            <!-- end pageheader -->
+                            <!-- ============================================================== -->
+                            <div class="resultmessage success">
+                                Your request has been succesfully processed
+                            </div>
+                            <div class="resultmessage error">
+                                There was an error in processing your request
+                            </div>
+                            <div id="cnt_appLinks" class="row">
+                                <p>Please choose the website you would like to request access to:<br><br></p>
+                            </div>
+                            <div class="requestlinks">
+                                <ul class="requestlist">
+                                    <li>
+                                        <a style="color: #009677" href="/getaccess">22 Seven application</a><br>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function getParameterByName( name ){
+                    var regexS = "[\\?&]"+name+"=([^&#]*)", 
+                  regex = new RegExp( regexS ),
+                  results = regex.exec( window.location.search );
+                  if( results == null ){
+                    return "";
+                  } else{
+                    return decodeURIComponent(results[1].replace(/\+/g, " "));
+                  }
+                }
+
+                
+                if (getParameterByName("result")=='success') {
+                   $(".success").show();
+                }
+                if (getParameterByName("result")=='error') {
+                   $(".error").show();
+                }
+            </script>
+
+
+
+

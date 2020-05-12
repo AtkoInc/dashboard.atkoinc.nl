@@ -4,6 +4,7 @@ class UserProfile {
     constructor(profileJson) {
         if(profileJson){
             try {
+                this.id = profileJson.id
                 this.userName = profileJson.profile.email
                 this.firstName = profileJson.profile.firstName
                 this.lastName = profileJson.profile.lastName

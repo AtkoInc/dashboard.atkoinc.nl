@@ -8,6 +8,8 @@
                 background-color: #fff;
 
             }
+
+
             .card {
                 width: 100%;
                 border: solid 1px #009677;
@@ -25,6 +27,19 @@
 
             .card-header {
                 border: 0px !important;
+            }
+
+            .requestlinks {
+                background-color: #d4e8dc;
+                margin-left: -30px; 
+                margin-right: -30px; 
+                margin-top: 10px; 
+            }
+
+            .requestlist li {
+                padding: 10px;
+                list-style: none;
+                margin-bottom: 10px;
             }
 
         </style>
@@ -49,7 +64,23 @@
                             <!-- end pageheader -->
                             <!-- ============================================================== -->
                             <div id="cnt_appLinks" class="row">
-
+                                <p>Please choose the website you would like to request access to:<br><br></p>
+                            </div>
+                            <div class="requestlinks">
+                                <ul class="requestlist">
+                                    <li>
+                                        <a style="color: #009677" href="#">Some app here</a><br>
+                                        <p>This is some description</p>
+                                    </li>
+                                    <li>
+                                        <a style="color: #009677" href="#">Some app here</a><br>
+                                        <p>This is some description</p>
+                                    </li>
+                                    <li>
+                                        <a style="color: #009677" href="#">Some app here</a><br>
+                                        <p>This is some description</p>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>

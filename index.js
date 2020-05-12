@@ -109,7 +109,6 @@ function parseError(error){
 }
 
 const router = express.Router();
-    console.log('xxx');
 
 router.get("/",tr.ensureAuthenticated(), async (req, res, next) => {
     logger.verbose("/ requested")
@@ -130,7 +129,6 @@ router.get("/",tr.ensureAuthenticated(), async (req, res, next) => {
             apps.push(app);
         }
         var appAccountUrl = process.env.SESSION_SECRET;
-        console.log(apps);
         res.render("index",{
             tenant: tr.getRequestingTenant(req).tenant,
             tokenSet: req.userContext.tokens,
@@ -151,6 +149,7 @@ router.get("/",tr.ensureAuthenticated(), async (req, res, next) => {
 
 });
 
+
 router.get("/getaccess",tr.ensureAuthenticated(), async (req, res, next) => {
     logger.verbose("/ requested")
     const requestingTenant = tr.getRequestingTenant(req);
@@ -158,24 +157,33 @@ router.get("/getaccess",tr.ensureAuthenticated(), async (req, res, next) => {
     const tokenSet = req.userContext.tokens;
     axios.defaults.headers.common['Authorization'] = `Bearer `+tokenSet.access_token
     try {
-        const response2 = await axios.get(tr.getRequestingTenant(req).tenant+'/api/v1/users/me')
-        var profile = new userProfile(response2.data)
+        const response = await axios.get(tr.getRequestingTenant(req).tenant+'/api/v1/users/me')
+        var profile = new userProfile(response.data)
 
-        for(var idx in response.data){
-            var app = new appLink(response.data[idx]);
-            apps.push(app);
-        }
-        var appAccountUrl = process.env.SESSION_SECRET;
-        console.log(apps);
-        res.render("getaccess",{
-            tenant: tr.getRequestingTenant(req).tenant,
-            tokenSet: req.userContext.tokens,
-            user: profile,
+        console.log('---- Calling Okta Workflows ----');
+        logger.verbose("/ requested")
+        const https = require("https");
+ //       console.log(profile)
+        const url = "https://oml-poc.workflows.okta.com/api/flo/b66089cd3c5bdd1de9963c8d8a3d78af/invoke?app=0oabqu6vg9VlzoBHM4x6&appname=22 Seven&user="+ profile.id;
+
+        https.get(url, result => {
+          result.setEncoding("utf8");
+          let body = "";
+          result.on("data", data => {
+//            console.log(body);
+            body += data;
+          });
+          result.on("end", () => {
+            body = JSON.parse(body);
+//            console.log(body);
+            res.redirect("/requestaccess?result=success");
+          });
         });
+
     }
     catch(error) {
          console.log(error);
-         res.render("getaccess",{
+         res.render("index",{
              tenant: tr.getRequestingTenant(req).tenant,
              tokenSet: req.userContext.tokens,
              user: new userProfile(),
@@ -183,6 +191,12 @@ router.get("/getaccess",tr.ensureAuthenticated(), async (req, res, next) => {
          });
     }
 
+});
+
+router.get("/requestaccess", tr.ensureAuthenticated(), (req, res) => {
+        console.log(res.query);
+        res.render("requestaccess",{
+       });
 });
 
 router.get("/logout", tr.ensureAuthenticated(), (req, res) => {
