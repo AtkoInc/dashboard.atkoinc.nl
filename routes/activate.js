@@ -24,7 +24,7 @@ module.exports = function (_oidc){
             case "SUCCESS":
                 res.render('activate');
             case "PASSWORD_RESET":
-                res.render('activate', { state: response.data.stateToken, pwdReset: true, user:new UserProfile(response.data.user)});
+                res.render('activate', { state: response.data.stateToken, pwdReset: true, user: new UserProfile(response.data._embedded.user)});
         }        
     }
     catch (err){
@@ -47,16 +47,28 @@ module.exports = function (_oidc){
   router.post('/', async function (req,res,next){
 
     try {
-        var headers = {
-            Authorization: "SSWS "+process.env.API_TOKEN,
-            'Content-Type': 'application/json',
-            Accept: 'application/json'
+        var response = await axios.post(
+            process.env.TENANT+'/api/v1/authn/credentials/reset_password',
+            {
+                stateToken: req.body.state,
+                newPassword: req.body.password
+            },
+            {headers:{Authorization: "SSWS "+process.env.API_TOKEN,}})
+
+        logger.verbose("Set user password")
+        console.log(response.data)
+        if(req.body.username != response.data._embedded.user.profile.login){
+            logger.verbose("User proivded new value for username")
+            await axios.post(
+                process.env.TENANT+'/api/v1/users/'+response.data._embedded.user.id,
+                {
+                    profile:{
+                        login: req.body.username
+                    }
+                },
+                {headers:{Authorization: "SSWS "+process.env.API_TOKEN,}})
+            logger.verbose("Set username")
         }
-        var response = await axios.post(process.env.TENANT+'/api/v1/authn/credentials/reset_password',
-        {
-            stateToken: req.body.state,
-            newPassword: req.body.password
-        },{headers:headers});
 
         //TODO convert response.data.sessionToken to session
         
@@ -67,9 +79,11 @@ module.exports = function (_oidc){
         }
     }
     catch(err) {
-        if(err.response.status == 403 && err.response.data.errorCode == 'E0000080'){
-            //todo handle user profile
-            res.render('activate', { state: req.body.state, pwdReset: true, user:new UserProfile()});
+        if(err.response){
+            if(err.response.status == 403 && err.response.data.errorCode == 'E0000080'){
+                //todo handle user profile
+                res.render('activate', { state: req.body.state, pwdReset: true, user:new UserProfile()});
+            }
         }
         else{
             logger.error(err)
