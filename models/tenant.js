@@ -8,11 +8,19 @@ class Tenant {
                 logger.verbose("Tenant: "+this.tenant)
                 this.expires = new Date(new Date().getTime() + process.env.UDP_CACHE_DURATION*60000);
                 logger.verbose("Expires: "+this.expires)
-                this.authorizationURL = tenantProfileJson.okta_org_name+ '/v1/authorize',
+                this.issuer = tenantProfileJson.issuer
+                logger.verbose("Issuer: "+this.issuer)
+
+                //TODO use the .well-known instead
+                var oktaPath = this.issuer
+                if(!oktaPath.includes("/oauth2/")){
+                    oktaPath = this.tenant + "/oauth2"
+                }
+                this.authorizationURL = oktaPath+ '/v1/authorize',
                 logger.verbose("AuthzUrl: "+this.authorizationURL)
-                this.tokenURL= tenantProfileJson.okta_org_name+'/v1/token',
+                this.tokenURL= oktaPath+'/v1/token',
                 logger.verbose("TokenUrl: "+this.tokenURL)
-                this.userInfoURL= tenantProfileJson.okta_org_name+'/v1/userinfo',
+                this.userInfoURL= oktaPath+'/v1/userinfo',
                 logger.verbose("UserInfoUrl: "+this.userInfoURL)
                 this.clientID= tenantProfileJson.client_id
                 logger.verbose("ClientID: "+this.clientID)

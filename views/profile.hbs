@@ -1,0 +1,19 @@
+<form action="/profile" method="POST">
+    {{#each prompts}}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+            <span class="text-nowrap">{{this}}</span>
+            <input name="{{this}}" id="{{this}}" class="form-control">
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    <div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+        <button type="submit" class="btn btn-primary my-4">Update Profile</button>
+        </div>
+    </div>
+    </div>
+</form>
