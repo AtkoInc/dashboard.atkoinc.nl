@@ -2,17 +2,20 @@
     <form action="/activate" method="POST">
         <div class="row">
         <div class="col-md-6">
+            
             <div class="form-group">
-            <span class="text-nowrap">password</span>
-            <input type="password" name="password" id="password" class="form-control" placeholder="enter your password here">
-            <input type="hidden" name="state" id="state" value="{{state}}" />
+                <label for="username">Username</label>
+                <input name="username" id="username" class="form-control" value="{{user.userName}}">
+                <label for="password" class="text-nowrap">Password</label>
+                <input type="password" name="password" id="password" class="form-control" placeholder="enter your password here">
+                <input type="hidden" name="state" id="state" value="{{state}}" />
             </div>
         </div>
         </div>
         <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-            <button type="submit" class="btn btn-primary my-4">Set password</button>
+            <button type="submit" class="btn btn-primary my-4">Complete Activation</button>
             </div>
         </div>
         </div>
