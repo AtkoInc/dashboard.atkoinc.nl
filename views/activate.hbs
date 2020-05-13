@@ -1,26 +1,131 @@
-{{#if pwdReset}}
-    <form action="/activate" method="POST">
-        <div class="row">
-        <div class="col-md-6">
-            
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input name="username" id="username" class="form-control" value="{{user.userName}}">
-                <label for="password" class="text-nowrap">Password</label>
-                <input type="password" name="password" id="password" class="form-control" placeholder="enter your password here">
-                <input type="hidden" name="state" id="state" value="{{state}}" />
+        <script src="/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+        <style>
+            .dashboard-wrapper {
+                position: relative;
+                margin-top: 80px;
+                margin: 0 auto;
+                max-width:600px;
+                background-color: #fff;
+                z-index: 99;
+                min-height: auto!important;
+
+            }
+            .card {
+                width: 100%;
+                border: solid 1px #009677;
+                line-height: 25px;
+                padding: 10px;
+                border-radius: 0px;
+            }
+
+            .card-title {
+                color: #009677;
+                font-size: 16px ;
+                font-family: Arial, sans-serif !important;
+                font-weight: bold;
+            }
+
+            .card-header {
+                border: 0px !important;
+            }
+
+            .dashboard-content {
+                margin-top: 80px !important;
+            }
+
+            .textfield {
+                width:100%;
+            }
+        </style>
+        <!-- ============================================================== -->
+        <!-- wrapper  -->
+        <!-- ============================================================== -->
+        <div class="dashboard-wrapper">
+            <div class="container-fluid dashboard-content">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <!-- ============================================================== -->
+                            <!-- pageheader -->
+                            <!-- ============================================================== -->
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="page-header" id="top">
+                                        <h2 class="pageheader-title">Please update your profile</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ============================================================== -->
+                            <!-- end pageheader -->
+                            <!-- ============================================================== -->
+                            <div class="row">
+
+                            {{#if pwdReset}}
+                                <form action="/activate" method="POST">
+                                    <div class="row">
+                                    <div class="col-md-6">
+                                        
+                                        <div class="form-group">
+                                            <label for="username">Username</label>
+                                            <input name="username" id="username" class="form-control textfield" value="{{user.userName}}">
+                                            <label for="password" class="text-nowrap textfield">Password</label>
+                                            <input type="password" name="password" id="password" class="form-control textfield" placeholder="enter your password here">
+                                            <input type="hidden" name="state" id="state" value="{{state}}" />
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        <button type="submit" class="btn btn-primary my-4">Complete Activation</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </form>
+                            {{else}}
+                                Thank you for activating your account.
+                                <a href="{{redirect}}">Continue</a>
+                            {{/if}}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        <style>
+            .shadow {
+                background-color: red;
+                z-index: 2;
+                position: absolute;
+                background-image: url('/assets/images/bg_shadow.jpg')
+            }
+        </style>
+        <div class="shadow">
+        &nbsp;
         </div>
-        </div>
-        <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-            <button type="submit" class="btn btn-primary my-4">Complete Activation</button>
-            </div>
-        </div>
-        </div>
-    </form>
-{{else}}
-Thank you for activating your account.
-<a href="{{redirect}}">Continue</a>
-{{/if}}
+        <script type="text/javascript">
+            function setShadow() {
+              $(".shadow").css({
+                'width': ($(".dashboard-wrapper").width() + 'px')
+              });
+              $(".shadow").css({
+                'height': ($(".dashboard-wrapper").height() + 'px')
+              });
+              var marginLeft = parseInt($(".dashboard-wrapper").css("margin-left"))+50;
+              var marginTop = parseInt($(".dashboard-wrapper").css("margin-top"))-parseInt(($(".dashboard-wrapper").height() + 'px'))+100
+              console.log(marginLeft);
+              $(".shadow").css({
+                'margin-left': marginLeft+ 'px'
+              });
+              $(".shadow").css({
+                'margin-top': marginTop+ 'px'
+              });
+            }
+
+            $(document).ready(function() {
+                setShadow();
+            });            
+
+            $( window ).resize(function() {
+                setShadow();
+            }); 
+        </script>
