@@ -4,7 +4,7 @@ var logger = require('./logger')
 class ProgressiveProfiler {
     constructor(tenantResolver) {
         this.tr = tenantResolver
-        this.requiredFields = ["firstName","lastName","IdType","customerCode","mobilePhone"];
+        this.requiredFields = ["firstName","lastName","IdType","IdNumber","customerCode","mobilePhone"];
     }
 
     ensureProfiled(){

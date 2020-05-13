@@ -20,6 +20,7 @@ module.exports = function (_oidc){
             token: token
         });
         var status = response.data.status
+        logger.verbose("user activated")
         switch(status){
             case "SUCCESS":
                 res.render('activate');
@@ -57,7 +58,7 @@ module.exports = function (_oidc){
             stateToken: req.body.state,
             newPassword: req.body.password
         },{headers:headers});
-
+        logger.verbose("user password reset")
         //TODO convert response.data.sessionToken to session
         
         if(response.data.status === "SUCCESS" || response.data.status === "MFA_ENROLL"){
@@ -69,6 +70,7 @@ module.exports = function (_oidc){
     catch(err) {
         if(err.response.status == 403 && err.response.data.errorCode == 'E0000080'){
             //todo handle user profile
+            logger.warn("user authentication failed")
             res.render('activate', { state: req.body.state, pwdReset: true, user:new UserProfile()});
         }
         else{
