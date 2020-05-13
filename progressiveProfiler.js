@@ -23,8 +23,9 @@ class ProgressiveProfiler {
                 )
                 for(var i=0; i< this.requiredFields.length; i++){
                     if(!response.data.profile.hasOwnProperty(this.requiredFields[i])
+                    || response.data.profile[this.requiredFields[i]] === null
                     || response.data.profile[this.requiredFields[i]].length === 0){
-                        logger.verbose("User has incomplete profile for field: " +
+                        logger.verbose("User has incomplete profile for field: " +                        
                         this.requiredFields[i])
                         promptFields.push(this.requiredFields[i])
                     }
