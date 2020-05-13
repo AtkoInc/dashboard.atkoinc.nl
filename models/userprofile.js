@@ -5,7 +5,7 @@ class UserProfile {
         if(profileJson){
             try {
                 this.id = profileJson.id
-                this.userName = profileJson.profile.email
+                this.userName = profileJson.profile.login
                 this.firstName = profileJson.profile.firstName
                 this.lastName = profileJson.profile.lastName
                 this.name = profileJson.profile.firstName + " " + profileJson.profile.lastName
