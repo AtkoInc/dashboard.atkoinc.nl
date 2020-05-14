@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
+const moment = require('moment')
 var logger = require('../logger')
 
 module.exports = function (_oidc){
@@ -20,6 +21,12 @@ module.exports = function (_oidc){
     router.post('/', async function (req,res,next){
     try {
         const requestingTenant = oidc.getRequestingTenant(req)
+        if(req.body.hasOwnProperty("consent") && req.body['consent'] === 'on'){
+            logger.verbose("user updated consent, attaching time and source ip")
+            req.body['consent'] = 'true'
+            req.body["consent_date"] = moment.utc().format('YYYY.MM.D HH:mm:ss z')
+            req.body["consent_ip"] = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+        }
         await axios.post(
             requestingTenant.tenant+'/api/v1/users/' + req.userContext.id,
             {profile:req.body},

@@ -72,7 +72,11 @@
                                                     {{/each}}
                                                 </select>
                                             {{else}}
-                                                <input name="{{this.id}}" id="{{this.id}}" class="form-control">
+                                                <input name="{{this.id}}" id="{{this.id}}" class="form-control"
+                                                {{#ifEquals this.type "boolean"}}
+                                                    type="checkbox"
+                                                {{/ifEquals}}
+                                                >
                                             {{/if}}
                                             </div>
                                         </div>
