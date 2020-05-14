@@ -5,7 +5,7 @@ const ProfileField = require('./models/profileField')
 class ProgressiveProfiler {
     constructor(tenantResolver) {
         this.tr = tenantResolver
-        this.requiredFields = ["firstName","lastName","IdType","customerCode","mobilePhone","consent"];
+        this.requiredFields = ["firstName","lastName","IdType","customerCode","mobilePhone","consent_tc","consent_contact","consent_share"];
     }
 
     ensureProfiled(){
