@@ -21,11 +21,23 @@ module.exports = function (_oidc){
     router.post('/', async function (req,res,next){
     try {
         const requestingTenant = oidc.getRequestingTenant(req)
-        if(req.body.hasOwnProperty("consent") && req.body['consent'] === 'on'){
-            logger.verbose("user updated consent, attaching time and source ip")
-            req.body['consent'] = 'true'
-            req.body["consent_date"] = moment.utc().format('YYYY.MM.D HH:mm:ss z')
-            req.body["consent_ip"] = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+        if(req.body.hasOwnProperty("consent_tc") && req.body['consent_tc'] === 'on'){
+            logger.verbose("user updated tc consent, attaching time and source ip")
+            req.body['consent_tc'] = 'true'
+            req.body["consent_tc_date"] = moment.utc().format('YYYY.MM.D HH:mm:ss z')
+            req.body["consent_tc_ip"] = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+        }
+        if(req.body.hasOwnProperty("consent_contact") && req.body['consent_contact'] === 'on'){
+            logger.verbose("user updated contact consent, attaching time and source ip")
+            req.body['consent_contact'] = 'true'
+            req.body["consent_contact_date"] = moment.utc().format('YYYY.MM.D HH:mm:ss z')
+            req.body["consent_contact_ip"] = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+        }
+        if(req.body.hasOwnProperty("consent_share") && req.body['consent_share'] === 'on'){
+            logger.verbose("user updated share consent, attaching time and source ip")
+            req.body['consent_share'] = 'true'
+            req.body["consent_share_date"] = moment.utc().format('YYYY.MM.D HH:mm:ss z')
+            req.body["consent_share_ip"] = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
         }
         await axios.post(
             requestingTenant.tenant+'/api/v1/users/' + req.userContext.id,
