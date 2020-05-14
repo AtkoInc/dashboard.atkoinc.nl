@@ -122,6 +122,7 @@ router.get("/",[tr.ensureAuthenticated(),pp.ensureProfiled()], async (req, res, 
         const response = await axios.get(tr.getRequestingTenant(req).tenant+'/api/v1/users/me/appLinks')
         var apps = [];
 
+
         const response2 = await axios.get(tr.getRequestingTenant(req).tenant+'/api/v1/users/me')
         var profile = new userProfile(response2.data)
 
@@ -129,6 +130,9 @@ router.get("/",[tr.ensureAuthenticated(),pp.ensureProfiled()], async (req, res, 
         for(var idx in response.data){
             var app = new appLink(response.data[idx]);
             apps.push(app);
+            apps.sort(function(a, b){
+                return a.sortOrder-b.sortOrder
+            })
         }
         var appAccountUrl = process.env.SESSION_SECRET;
         res.render("index",{
