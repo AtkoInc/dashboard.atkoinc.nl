@@ -60,7 +60,6 @@ module.exports = function (_oidc){
             {headers:{Authorization: "SSWS "+process.env.API_TOKEN,}})
 
         logger.verbose("Set user password")
-        console.log(response.data)
         if(req.body.username != response.data._embedded.user.profile.login){
             logger.verbose("User proivded new value for username")
             await axios.post(
@@ -73,11 +72,8 @@ module.exports = function (_oidc){
                 {headers:{Authorization: "SSWS "+process.env.API_TOKEN,}})
             logger.verbose("Set username")
         }
-
-        //TODO convert response.data.sessionToken to session
         
         if(response.data.status === "SUCCESS" || response.data.status === "MFA_ENROLL"){
-                console.log(req)
                 res.render('activate', {redirect: tenant.tenant+'/login/sessionCookieRedirect?token='+response.data.sessionToken+'&redirectUrl='+req.headers.origin});
         } else {
                 res.render('activate', { title: 'Activate Your Account', msg: "Failed: status was "+response.data.status});

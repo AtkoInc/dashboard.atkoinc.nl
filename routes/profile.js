@@ -11,9 +11,10 @@ module.exports = function (_oidc){
             logger.error("Attempt to progressive profile with no prompts loaded.")
             res.redirect('/')
         }
-
-        res.render('profile',{prompts: req.session.prompts})
-        req.session.prompts = null
+        else{
+            res.render('profile',{prompts: req.session.prompts})
+            req.session.prompts = null
+        }
     });
 
     router.post('/', async function (req,res,next){

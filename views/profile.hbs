@@ -3,8 +3,16 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-            <span class="text-nowrap">{{this}}</span>
-            <input name="{{this}}" id="{{this}}" class="form-control">
+            <span class="text-nowrap">{{this.title}}</span>
+            {{#if this.enum}}
+                <select name="{{this.id}}" id="{{this.id}}" class="form-control">
+                    {{#each this.options}}
+                        <option value="{{this.const}}">{{this.title}}</option>
+                    {{/each}}
+                </select>
+            {{else}}
+                <input name="{{this.id}}" id="{{this.id}}" class="form-control">
+            {{/if}}
             </div>
         </div>
     </div>
