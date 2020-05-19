@@ -170,8 +170,7 @@ router.get("/getaccess",tr.ensureAuthenticated(), async (req, res, next) => {
         logger.verbose("/ requested")
         const https = require("https");
  //       console.log(profile)
-        const url = "https://oml-poc.workflows.okta.com/api/flo/b66089cd3c5bdd1de9963c8d8a3d78af/invoke?app=0oabqu6vg9VlzoBHM4x6&appname=22 Seven&user="+ profile.id;
-
+        const url = "https://awesomeworkflows.workflows.oktapreview.com/api/flo/9986dddec6fe7eeb4188d0cb7de90920/invoke?app=0oabqvadmJRoaRDiK4x6&user="+ profile.id +"&appname=22%20seven"
         https.get(url, result => {
           result.setEncoding("utf8");
           let body = "";
