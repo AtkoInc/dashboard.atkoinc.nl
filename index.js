@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 
 app.engine('hbs',  hbs( { 
     extname: 'hbs', 
-    defaultLayout: 'main', 
+    defaultLayout: 'main_with_menu', 
     layoutsDir: __dirname + '/views/layouts/',
     partialsDir: __dirname + '/views/partials/',
     helpers: {
@@ -142,6 +142,29 @@ router.get("/",[tr.ensureAuthenticated(),pp.ensureProfiled()], async (req, res, 
          });
     }
 
+});
+
+router.get("/tokens",tr.ensureAuthenticated(), async (req, res, next) => {
+    logger.verbose("/tokens requested")
+    const tokenSet = req.userContext.tokens;
+    axios.defaults.headers.common['Authorization'] = `Bearer `+tokenSet.access_token
+    try {
+        const response = await axios.get(tr.getRequestingTenant(req).tenant+'/api/v1/users/me')
+        var profile = new userProfile(response.data)
+        res.render("tokens",{
+            tenant: tr.getRequestingTenant(req).tenant,
+            tokenSet: req.userContext.tokens,
+            user: profile,
+        });
+    }
+    catch(error) {
+        res.render("tokens",{
+            tenant: tr.getRequestingTenant(req).tenant,
+            tokenSet: req.userContext.tokens,
+            user: new userProfile(),
+            error: parseError(error)
+        });
+    }
 });
 
 router.get("/logout", tr.ensureAuthenticated(), (req, res) => {

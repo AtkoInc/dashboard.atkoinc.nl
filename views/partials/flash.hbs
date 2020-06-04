@@ -1,0 +1,15 @@
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        {{#if error}}
+            <div class="alert alert-danger">
+                {{error}}
+            </div>
+        {{/if}}
+        {{#if flash}}
+            <div class="alert alert-success">
+                {{flash}}
+            </div>
+        {{/if}}
+    </div>
+</div>
