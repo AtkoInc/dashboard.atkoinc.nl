@@ -21,35 +21,42 @@
                                             <a href="https://dashboard.atkoinc.nl" class="connection-item"><img src="assets/images/icons/dashboard.png" alt="" > <span>Dashboard</span></a>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" onClick="alert('This app is under construction')" class="connection-item"><img style="opacity: 0.2;" src="assets/images/icons/auction.png" alt="" > <span>Auctions</span></a>
+                                            <a href="https://auction.atkoinc.nl" class="connection-item"><img src="assets/images/icons/auction.png" alt="" > <span>Auctions</span></a>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" onClick="alert('This app is under construction')" class="connection-item"><img style="opacity: 0.2;" src="assets/images/icons/b2b.png" alt=""> <span>B2B</span></a>
+                                            <a href="https://b2b.atkoinc.nl" class="connection-item"><img src="assets/images/icons/b2b.png" alt=""> <span>B2B</span></a>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="#" onClick="alert('This app is under construction')" class="connection-item"><img style="opacity: 0.2;" src="assets/images/icons/b2e.png" alt="" ><span>B2E</span></a>
+                                            <a href="https://atkoinc.okta.com" class="connection-item"><img src="assets/images/icons/b2e.png" alt="" ><span>B2E</span></a>
                                         </div>
                                     </div>
                                 </li>
                             </ul>
                         </li>
+                        {{#with user}}  
                         <li class="nav-item dropdown nav-user">
-                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{user.firstName}} {{user.lastName}}</a>
+                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{#if name}} {{name}} {{else}} <span id="unknownUser" style="curson:pointer">unknow user</span>{{/if}}
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
-                                <div class="nav-user-info">
-                                    <h5 class="mb-0 text-white nav-user-name">{{user.userName}}</h5>
-                                    <span class="status"></span><span class="ml-2">{{user.accountType}}</span>
+                                <div class="nav-user-info">                              
+                                    <h5 class="mb-0 text-white nav-user-name">{{name}}</h5>
+                                    <span class="status"></span><span class="ml-2">{{account_type}}</span>
                                 </div>
                                 <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
                                 <a class="dropdown-item" href="/logout"><i class="fas fa-power-off mr-2"></i>Logout</a>
                             </div>
                         </li>
+                        {{/with}}
                     </ul>
                 </div>
             </nav>
         </div>
+        <script>
+            $("#unknownUser").click(function() {
+                document.location = '/logout';
+            })
+        </script>
         <!-- ============================================================== -->
         <!-- end navbar -->
         <!-- ============================================================== -->

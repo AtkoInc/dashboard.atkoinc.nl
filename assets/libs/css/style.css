@@ -212,11 +212,11 @@ p:last-child {
 }
 
 a {
-    color: #71748d;
+    color: #5969ff;
 }
 
 a:hover {
-    color: #ff407b;
+    color: #5969ff;
     text-decoration: none;
 }
 
@@ -1441,16 +1441,16 @@ Top Header
 
 .connection-item img {
     width: 32px;
+    text-align: center;
 }
 
 .connection-item:hover {
     background-color: #fff;
-    border: 1px solid #e6e6f2;
 }
 
 .connection-item span {
     display: block;
-    text-overflow: ellipsis;
+    overflow: block;
     white-space: nowrap;
 }
 
@@ -1947,7 +1947,7 @@ Container / Wrapper
 }
 
 .dashboard-content {
-    padding: 30px 30px 60px 30px;
+    padding: 0px 0px 0px 0px;
 }
 
 
@@ -3311,15 +3311,6 @@ btn-link
     position: relative;
     margin-bottom: 0;
     overflow: hidden;
-}
-
-.img-applink {
-    max-height:50px;
-    max-width: 100px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
 }
 
 .figure-img .img-link {
@@ -6979,8 +6970,36 @@ Media Query
     padding: 17px 29px;}
 }
 
-
-
-
 /* Custom, iPhone Retina */
 @media only screen and (max-width:320px) {}
+
+.token_button {
+    background-color: #ffd782;
+    top: 10vh;
+    margin:0px;
+    margin-top:10px;
+    text-align: center;
+    padding:8px;
+    cursor:pointer;
+}
+
+.token_store {
+    background-color: #FFF1D6;
+    padding:10px;
+}
+.token_icon {
+    color:white;
+}
+
+div.row {
+    padding:10px;
+}
+
+.img-applink {
+    max-height:50px;
+    max-width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
