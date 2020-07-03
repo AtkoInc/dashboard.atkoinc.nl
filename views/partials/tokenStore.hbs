@@ -1,0 +1,19 @@
+<div id="btn_showTokens" class="token_button">
+	<i class="fa fa-fw fa-code token_icon"></i>
+</div>
+<div id="cnt_tokenStore" class="token_store" style="display:none;">
+
+<h2>id token</h2>
+<pre>{{jwt tokenSet.id_token}}</pre>
+
+<h2>access token</h2>
+<pre>{{jwt tokenSet.access_token}}</pre>
+
+</div>
+<script>
+$( "#btn_showTokens" ).click(function() {
+  $( "#cnt_tokenStore" ).slideToggle( "slow", function() {
+    console.log('Disclaimer: It is not best practice to show tokens on screen');
+  });
+});
+</script>
