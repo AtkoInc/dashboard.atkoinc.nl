@@ -2,8 +2,9 @@
         <!-- navbar -->
         <!-- ============================================================== -->
         <div class="dashboard-header">
+
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
-                <a class="navbar-brand" href="index.html"> <img style="height: 30px; margin-bottom: 10px;" src="assets/images/icons/logo.png" alt="" > Atko inc.</a>
+                <a class="navbar-brand" href="index.html"> <img style="height: 30px; margin-bottom: 10px;" src="{{appLogoUrl}}" alt="" > {{appTitle}}</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -14,36 +15,48 @@
                             <ul class="dropdown-menu dropdown-menu-right connection-dropdown">
                                 <li class="connection-list">
                                     <div class="row">
+                                        {{#if_link_exists 'ACCOUNT_URL'}}
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="https://myaccount.atkoinc.nl" class="connection-item"><img src="assets/images/icons/account.png" alt="" > <span>Account</span></a>
+                                            <a href="{{microServiceLinks 'ACCOUNT_URL'}}" class="connection-item"><img src="assets/images/icons/account.png" alt="" > <span>Account</span></a>
                                         </div>
+                                        {{/if_link_exists}}
+                                        {{#if_link_exists 'DASHBOARD_URL'}}
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="https://dashboard.atkoinc.nl" class="connection-item"><img src="assets/images/icons/dashboard.png" alt="" > <span>Dashboard</span></a>
+                                            <a href="{{microServiceLinks 'ADMIN_URL'}}" class="connection-item"><img src="assets/images/icons/dashboard.png" alt="" > <span>Dashboard</span></a>
                                         </div>
+                                        {{/if_link_exists}}
+                                        {{#if_link_exists 'AUCTION_URL'}}
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
-                                            <a href="https://auction.atkoinc.nl" class="connection-item"><img src="assets/images/icons/auction.png" alt="" > <span>Auctions</span></a>
+                                            <a href="{{microServiceLinks 'AUCTION_URL'}}" class="connection-item"><img src="assets/images/icons/auction.png" alt="" > <span>Auctions</span></a>
                                         </div>
+                                        {{/if_link_exists}}
+                                        {{#if_link_exists  'ADMIN_URL'}}
+                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                            <a href="{{microServiceLinks 'ADMIN_URL'}}" class="connection-item"><img src="assets/images/icons/b2b.png" alt="" > <span>Admin</span></a>
+                                        </div>
+                                        {{/if_link_exists}}
+
                                     </div>
-                                    <div class="row">
+                                    {{!-- <div class="row">
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
                                             <a href="https://b2b.atkoinc.nl" class="connection-item"><img src="assets/images/icons/b2b.png" alt=""> <span>B2B</span></a>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
                                             <a href="https://atkoinc.okta.com" class="connection-item"><img src="assets/images/icons/b2e.png" alt="" ><span>B2E</span></a>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </li>
                             </ul>
                         </li>
                         {{#with user}}  
                         <li class="nav-item dropdown nav-user">
-                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{#if name}} {{name}} {{else}} <span id="unknownUser" style="curson:pointer">unknow user</span>{{/if}}
+                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{name}}</a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">                              
                                     <h5 class="mb-0 text-white nav-user-name">{{name}}</h5>
                                     <span class="status"></span><span class="ml-2">{{account_type}}</span>
                                 </div>
-                                <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
+                                <a class="dropdown-item" href="{{microServiceLinks 'ACCOUNT_URL'}}"><i class="fas fa-user mr-2"></i>Account</a>
                                 <a class="dropdown-item" href="/logout"><i class="fas fa-power-off mr-2"></i>Logout</a>
                             </div>
                         </li>
@@ -52,11 +65,6 @@
                 </div>
             </nav>
         </div>
-        <script>
-            $("#unknownUser").click(function() {
-                document.location = '/logout';
-            })
-        </script>
         <!-- ============================================================== -->
         <!-- end navbar -->
         <!-- ============================================================== -->

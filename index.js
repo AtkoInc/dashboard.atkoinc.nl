@@ -38,6 +38,33 @@ app.engine('hbs',  hbs( {
             } else {
                 return "Invalid or empty token was parsed"
             }
+        },
+        theme: function(){
+            return process.env.THEME
+        },
+        microServiceLinks: function(link) {
+            return process.env[link];
+        },
+        if_link_exists: function(conditional, options) {
+            if (process.env[conditional]) {
+                return options.fn(this);
+            } else {
+                return options.inverse(this);
+            }
+        },
+        appTitle: function(){
+            if(process.env.TITLE){
+                return process.env.TITLE;
+            }
+
+            return 'Atko Inc.'
+        },
+        appLogoUrl: function(){
+            if(process.env.LOGO_URL){
+                return process.env.LOGO_URL;
+            }
+
+            return 'assets/images/icons/logo.png'
         }
     }
   } ) );
@@ -124,7 +151,7 @@ router.get("/",[tr.ensureAuthenticated(),pp.ensureProfiled()], async (req, res, 
             var app = new appLink(response.data[idx]);
             apps.push(app);
         }
-        console.log(apps);
+
         res.render("index",{
             tenant: tr.getRequestingTenant(req).tenant,
             tokenSet: req.userContext.tokens,
@@ -133,7 +160,6 @@ router.get("/",[tr.ensureAuthenticated(),pp.ensureProfiled()], async (req, res, 
         });
     }
     catch(error) {
-        console.log(error);
          res.render("index",{
              tenant: tr.getRequestingTenant(req).tenant,
              tokenSet: req.userContext.tokens,
@@ -141,7 +167,6 @@ router.get("/",[tr.ensureAuthenticated(),pp.ensureProfiled()], async (req, res, 
              error: parseError(error)
          });
     }
-
 });
 
 router.get("/tokens",tr.ensureAuthenticated(), async (req, res, next) => {

@@ -8,19 +8,11 @@ class Tenant {
                 logger.verbose("Tenant: "+this.tenant)
                 this.expires = new Date(new Date().getTime() + process.env.UDP_CACHE_DURATION*60000);
                 logger.verbose("Expires: "+this.expires)
-                this.issuer = tenantProfileJson.issuer
-                logger.verbose("Issuer: "+this.issuer)
-
-                //TODO use the .well-known instead
-                var oktaPath = this.issuer
-                if(!oktaPath.includes("/oauth2/")){
-                    oktaPath = this.tenant + "/oauth2"
-                }
-                this.authorizationURL = oktaPath+ '/v1/authorize',
+                this.authorizationURL = tenantProfileJson.okta_org_name+ '/oauth2/v1/authorize',
                 logger.verbose("AuthzUrl: "+this.authorizationURL)
-                this.tokenURL= oktaPath+'/v1/token',
+                this.tokenURL= tenantProfileJson.okta_org_name+'/oauth2/v1/token',
                 logger.verbose("TokenUrl: "+this.tokenURL)
-                this.userInfoURL= oktaPath+'/v1/userinfo',
+                this.userInfoURL= tenantProfileJson.okta_org_name+'/oauth2/v1/userinfo',
                 logger.verbose("UserInfoUrl: "+this.userInfoURL)
                 this.clientID= tenantProfileJson.client_id
                 logger.verbose("ClientID: "+this.clientID)
@@ -33,6 +25,8 @@ class Tenant {
                 }
                 this.callbackURL = tenantProfileJson.redirect_uri+'/authorization-code/'+sub
                 logger.verbose("CallbackURL: "+this.callbackURL)
+                this.delegationServiceUrl = tenantProfileJson.delegation_service_url
+                this.delegationServiceSecret = tenantProfileJson.delgation_service_secret
             }
             catch(error) {
                 logger.error(error);
@@ -42,19 +36,15 @@ class Tenant {
             try {
                 this.tenant = process.env.TENANT
                 this.expires = null
-                this.issuer = process.env.ISSUER
-
-                //TODO use the .well-known instead
-                var oktaPath = this.issuer
-                if(!oktaPath.includes("/oauth2/")){
-                    oktaPath = this.tenant + "/oauth2"
-                }
-                this.authorizationURL = oktaPath + '/v1/authorize'
-                this.tokenURL = oktaPath + '/v1/token',
-                this.userInfoURL = oktaPath + '/v1/userinfo',
+                this.issuer = process.env.TENANT
+                this.authorizationURL = process.env.TENANT+ '/oauth2/v1/authorize'
+                this.tokenURL = process.env.TENANT+'/oauth2/v1/token',
+                this.userInfoURL = process.env.TENANT+'/oauth2/v1/userinfo',
                 this.clientID = process.env.CLIENT_ID,
                 this.clientSecret = process.env.CLIENT_SECRET,
                 this.callbackURL = process.env.REDIRECT_URI+'/authorization-code/'+sub
+                this.delegationServiceUrl = process.env.DELEGATION_SERVICE_URL
+                this.delegationServiceSecret = process.env.DELEGATION_SERVICE_SECRET
             }
             catch(error) {
                 logger.error(error);
